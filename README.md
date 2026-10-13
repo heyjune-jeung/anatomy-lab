@@ -12,19 +12,20 @@
 
 첫 실행에는 모델 다운로드 시간이 필요합니다. Chrome 또는 Edge의 최신 버전을 사용하세요.
 
-## GitHub에 올리고 웹 링크 만들기
+## 자동 빌드와 웹 링크
 
-1. GitHub에서 `anatomy-lab`이라는 **공개(Public)** 저장소를 만듭니다. 이 이름은 제안이며 바꿔도 됩니다.
-2. 이 폴더의 **내용 전체**를 저장소 최상위에 올립니다. `index.html`, `atlas.js`, `style.css`, 두 JSON 파일, `vendor/`, `data/`가 모두 필요합니다. ZIP 자체를 올리지 않습니다.
-3. 저장소의 **Settings → Pages → Build and deployment**에서 **Deploy from a branch**를 선택합니다.
-4. **main / (root)**를 선택하고 저장합니다.
-5. 배포 후 Pages 설정에 표시되는 사이트 주소를 공유합니다. 실제 주소는 GitHub가 제공한 값을 사용하세요.
+이 저장소는 GitHub Actions에서 공식 원본 모델을 내려받아 웹용 데이터로 변환한 뒤 GitHub Pages에 게시합니다. 원본 모델 전체를 재현할 수 있는 변환 코드와 한국어 용어 사전을 함께 저장합니다.
 
-모델을 8MiB 이하의 파일로 나눠 일반 Git 저장소와 웹 업로드에서 사용할 수 있게 했습니다. Git LFS나 별도 서버는 필요하지 않습니다.
+1. **Settings → Pages → Build and deployment → Source**에서 **GitHub Actions**를 선택합니다.
+2. **Actions → Build and publish Anatomy Lab**에서 실행 결과를 확인합니다. main 브랜치 변경 시 자동 실행됩니다.
+3. 첫 빌드는 원본 모델 다운로드와 변환 때문에 몇 분 걸릴 수 있습니다.
+4. 성공 후 Pages 설정 또는 배포 작업에서 표시되는 사이트 링크를 공유합니다.
+
+웹용 모델은 8MiB 이하의 파일로 나눕니다. Git LFS나 별도 서버가 필요하지 않습니다. 데이터는 원본 출처에서 다시 내려받아 생성되며 원본 서버 가용성의 영향을 받습니다.
 
 ## 내 컴퓨터에서 실행
 
-다운로드한 저장소 폴더에서 `python -m http.server 8000`을 실행한 뒤 `http://localhost:8000`을 엽니다. 저장소의 `index.html`은 모델을 별도 파일로 불러오므로 더블클릭으로 실행하지 않습니다.
+Python 3.12에서 `python -m pip install numpy==2.2.6`, `python tools/build_site.py`를 실행합니다. 이후 `python -m http.server 8000 --directory _site`를 실행하고 `http://localhost:8000`을 엽니다. 저장소의 `index.html`은 모델을 별도 파일로 불러오므로 더블클릭으로 실행하지 않습니다.
 
 ## 데이터 범위
 
