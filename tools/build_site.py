@@ -1,5 +1,5 @@
 from pathlib import Path
-import base64,concurrent.futures,gzip,hashlib,json,shutil,subprocess,sys,urllib.request
+import os,base64,concurrent.futures,gzip,hashlib,json,shutil,subprocess,sys,urllib.request
 
 root=Path.cwd();work=root/'work';site=root/'_site';work.mkdir(exist_ok=True);site.mkdir(exist_ok=True);(root/'outputs/anatomy/dist').mkdir(parents=True,exist_ok=True)
 for p in (root/'tools').iterdir():
@@ -19,6 +19,8 @@ with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(
 for script in ['convert_atlas.py','optimize_atlas.py','add_korean.py','convert_female.py','translate_female.py','apply_medical_terms.py']:
  subprocess.run([sys.executable,str(work/script)],check=True)
 for filename in ['index.html','atlas.js','style.css','README.md','LICENSE','.nojekyll']:shutil.copy2(root/filename,site/filename)
+for name in ['index.html','atlas.js']:
+ path=site/name;path.write_text(path.read_text(encoding='utf-8').replace('__SITE_VERSION__',os.environ.get('GITHUB_SHA','local')),encoding='utf-8')
 (site/'vendor').mkdir(exist_ok=True);(site/'data').mkdir(exist_ok=True)
 for filename,url in {'three.module.js':'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js','LICENSE.txt':'https://cdn.jsdelivr.net/npm/three@0.170.0/LICENSE'}.items():urllib.request.urlretrieve(url,site/'vendor'/filename)
 for sex,filename,outname in [('male','atlas-final.json','atlas-data.json'),('female','female-final.json','female-data.json')]:
