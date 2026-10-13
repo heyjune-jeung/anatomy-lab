@@ -16,7 +16,7 @@ def download(item):
   except Exception:
    if attempt==2:raise
 with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:list(pool.map(download,downloads.items()))
-for script in ['convert_atlas.py','optimize_atlas.py','add_korean.py','convert_female.py','translate_female.py']:
+for script in ['convert_atlas.py','optimize_atlas.py','add_korean.py','convert_female.py','translate_female.py','apply_medical_terms.py']:
  subprocess.run([sys.executable,str(work/script)],check=True)
 for filename in ['index.html','atlas.js','style.css','README.md','LICENSE','.nojekyll']:shutil.copy2(root/filename,site/filename)
 (site/'vendor').mkdir(exist_ok=True);(site/'data').mkdir(exist_ok=True)

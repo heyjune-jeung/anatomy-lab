@@ -11,3 +11,5 @@
 
 #label{background:#74f2e4;color:#102522;transform:translate(-50%,-100%);border:1px solid #bafff6;box-shadow:0 4px 20px #0008;z-index:5}#locator-dot{position:absolute;width:12px;height:12px;border:2px solid #b8fff6;background:#5df5e1;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 5px #63f4e12b,0 0 14px #5df5e1;pointer-events:none;z-index:4}#locator-line{position:absolute;width:1px;background:#85ffed;pointer-events:none;z-index:4}#locator-dot[hidden],#locator-line[hidden]{display:none}
 
+.term-note{font-size:10px;line-height:1.8;color:var(--muted);padding:10px 0;border-bottom:1px solid var(--line)}
+
