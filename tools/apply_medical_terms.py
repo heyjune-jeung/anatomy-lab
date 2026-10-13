@@ -14,6 +14,7 @@ for filename in ['atlas-final.json','female-final.json']:
  path=Path('work')/filename;data=json.loads(path.read_text(encoding='utf-8'))
  original=data.get('namesKoAnatomical',data['namesKo']).copy();
  for en,old in list(original.items()):
+  if 'transversus thoracis' in en:original[en]=old.replace('가로근가슴','가슴가로근')
   if 'thyroid cartilage' in en:original[en]=old.replace('갑상샘연골','방패연골')
   if 'thyroid artery' in en:original[en]=old.replace('갑상샘동맥','갑상동맥')
  data['namesKoAnatomical']=original.copy();labels={};aliases={};changed=0
